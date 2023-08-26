@@ -1,5 +1,5 @@
-const main = async () => {
-  console.info("Chegou no put");
+const main = async (data: any) => {
+  console.info("Chegou no put", data);
 };
 
 export { main };
