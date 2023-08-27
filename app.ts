@@ -6,10 +6,10 @@ const main = async (data: LabelTelemetry[]) => {
   console.info("Chegou no put", data);
   const { deviceCode, passengerCount, timestamp } = data[0];
 
-  const device = await prisma.device.findFirst({
+  const device = await prisma.device.findUnique({
     where: {
-      code: data[0].deviceCode,
-    },
+      id: deviceCode
+    }
   });
 
   if (!device) throw new Error("Device not found");
