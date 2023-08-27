@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 const main = async (data: LabelTelemetry[]) => {
   console.info("Chegou no put", data);
-  const { deviceCode, passengerCount } = data[0];
+  const { deviceCode, passengerCount, timestamp } = data[0];
 
   const device = await prisma.device.findFirst({
     where: {
@@ -18,6 +18,7 @@ const main = async (data: LabelTelemetry[]) => {
     data: {
       deviceId: device.id,
       passengerCount: passengerCount,
+      timestamp: timestamp
     }
   })
 };
@@ -25,6 +26,7 @@ const main = async (data: LabelTelemetry[]) => {
 type LabelTelemetry = {
   deviceCode: string;
   passengerCount: number;
+  timestamp: string;
 }
 
 export { main };

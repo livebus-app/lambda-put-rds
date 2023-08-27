@@ -30,6 +30,7 @@ model Device {
 model Telemetry {
   id             Int      @id @default(autoincrement())
   deviceId       Int
+  timestamp      DateTime
   createdAt      DateTime @default(now())
   updatedAt      DateTime @default(now()) @updatedAt
   passengerCount Int
