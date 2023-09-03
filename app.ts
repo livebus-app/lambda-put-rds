@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const main = async (data: LabelTelemetry[]) => {
-  const { deviceCode, passengerCount, timestamp, objectKey } = data[0];
+  const { deviceCode, timestamp, objectKey, detectedLabels } = data[0];
 
   const device = await prisma.device.findUnique({
     where: {
@@ -16,7 +16,7 @@ const main = async (data: LabelTelemetry[]) => {
   return prisma.telemetry.create({
     data: {
       deviceId: device.id,
-      passengerCount,
+      passengerCount: detectedLabels.find(label => label.name === "person")?.count || 0,
       timestamp,
       objectKey
     }
@@ -28,6 +28,7 @@ type LabelTelemetry = {
   passengerCount: number;
   timestamp: string;
   objectKey: string;
+  detectedLabels: ({ name: string, count: number, })[];
 }
 
 export { main };
