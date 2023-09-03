@@ -13,6 +13,27 @@ const main = async (data: LabelTelemetry[]) => {
 
   if (!device) throw new Error("Device not found");
 
+  if (detectedLabels.find(label => label.name === "Knife")) {
+    const nonExpiredAlert = await prisma.alert.findFirst({
+      where: {
+        deviceId: device.id,
+        type: "PERICULOUS_OBJECT",
+        expiredAt: {
+          gt: new Date()
+        }
+      }
+    });
+
+    if (!nonExpiredAlert) await prisma.alert.create({
+      data: {
+        deviceId: device.id,
+        type: "PERICULOUS_OBJECT",
+        expiredAt: new Date(Date.now() + 1000 * 60 * 2),
+        description: "A knife was detected in the bus",
+      }
+    })
+  }
+
   return prisma.telemetry.create({
     data: {
       deviceId: device.id,
