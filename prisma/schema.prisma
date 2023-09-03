@@ -29,10 +29,11 @@ model Device {
 model Telemetry {
   id             Int      @id @default(autoincrement())
   deviceId       String
-  timestamp      DateTime
   createdAt      DateTime @default(now())
   updatedAt      DateTime @default(now()) @updatedAt
   passengerCount Int
+  timestamp      DateTime
+  objectKey      String?
   Device         Device   @relation(fields: [deviceId], references: [id])
 }
 
@@ -53,6 +54,7 @@ model Vehicle {
   companyId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+  maxSeats  Int?
   Device    Device[]
   Company   Company  @relation(fields: [companyId], references: [id])
 }

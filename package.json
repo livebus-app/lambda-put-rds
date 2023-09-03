@@ -14,12 +14,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "5.1.1",
+    "@prisma/client": "^5.2.0",
     "nanoid": "^4.0.2"
   },
   "devDependencies": {
     "@types/node": "^20.4.10",
-    "prisma": "^5.1.1",
+    "prisma": "^5.2.0",
     "tsup": "^7.2.0",
     "typescript": "^5.1.6"
   }
