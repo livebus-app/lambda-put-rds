@@ -11,6 +11,7 @@ const main = async (data: LabelTelemetry[]) => {
     }
   });
 
+  console.info(`Procurando pelo device ${deviceCode}`)
   if (!device) throw new Error("Device not found");
 
   if (detectedLabels.find(label => label.name === "Knife")) {
@@ -30,6 +31,7 @@ const main = async (data: LabelTelemetry[]) => {
         type: "PERICULOUS_OBJECT",
         expiredAt: new Date(Date.now() + 1000 * 60 * 2),
         description: "A knife was detected in the bus",
+        objectKey,
       }
     })
   }
