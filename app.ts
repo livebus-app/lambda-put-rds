@@ -16,7 +16,7 @@ const main = async (data: LabelTelemetry[]) => {
   return prisma.telemetry.create({
     data: {
       deviceId: device.id,
-      passengerCount: detectedLabels.find(label => label.name === "person")?.count || 0,
+      passengerCount: detectedLabels.find(label => label.name === "Person")?.count || 0,
       timestamp,
       objectKey
     }
